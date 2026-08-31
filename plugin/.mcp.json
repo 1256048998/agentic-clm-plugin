@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "agentic-clm": {
+      "type": "http",
+      "url": "${AGENTIC_CLM_URL:-https://agenticclm.657890.xyz}/api/mcp"
+    }
+  }
+}
