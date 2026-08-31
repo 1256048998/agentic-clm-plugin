@@ -6,6 +6,7 @@ allowed-tools:
   - mcp__agentic-clm__user__list
   - mcp__agentic-clm__user__create
   - mcp__agentic-clm__user__create_batch
+  - mcp__agentic-clm__user__provision_entity_admin
   - mcp__agentic-clm__user__update
   - mcp__agentic-clm__user__delete
   - mcp__agentic-clm__user__reset_password
@@ -26,6 +27,7 @@ allowed-tools:
 
 - `user__list` 查用户（账号/姓名/电话/邮箱/角色/部门/主体）。
 - `user__create` 建账号（账号/姓名/密码/角色/部门/主体）；Excel 名单批量导入 → `user__create_batch`。
+- 普通建账号仅限当前公司。为下级公司创建公司管理员必须用 `user__provision_entity_admin`：公司管理员可逐级向自己的严格下级委派，目标管理员固定为该主体 `ENTITY` 数据范围。
 - `user__update` 改信息/换角色/调部门/停用（离职）；`user__delete` 软删，**待办自动转交部门负责人或管理员**。
 - `user__reset_password` 重置登录密码；**未指定新密码时生成随机密码，只直接告知用户转达**。
 
@@ -41,5 +43,6 @@ allowed-tools:
 
 ## 4. 前置约定
 
-- 主体归属：用户/部门都挂在法人主体下，先 `entity__list` 确认主体，数据范围遵守当前用户可见主体。
+- 当前公司是普通写入边界：用户/部门等只允许维护当前公司；下级可见数据仅供查询。上报合同由审批流程处理，不得直接修改下级源数据。
+- 管理员委派只能沿法人树向下，禁止同级、上级和跨分支授权；每次委派都要确认并审计。
 - 所有写操作均触发 Claude Code 审批确认，等待批准后再继续。

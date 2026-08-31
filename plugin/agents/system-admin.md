@@ -5,6 +5,7 @@ tools:
   - mcp__agentic-clm__user__list
   - mcp__agentic-clm__user__create
   - mcp__agentic-clm__user__create_batch
+  - mcp__agentic-clm__user__provision_entity_admin
   - mcp__agentic-clm__user__update
   - mcp__agentic-clm__user__delete
   - mcp__agentic-clm__user__reset_password
@@ -44,7 +45,7 @@ tools:
 
 ## 能力边界
 
-- **用户**：`user__list`/`user__create`/`user__create_batch`（批量）/`user__update`（改信息/换角色/调部门/停用）/`user__delete`（软删，待办自动转交）/`user__reset_password`（未指定新密码时生成随机密码转达）。
+- **用户**：`user__list`/`user__create`/`user__create_batch`（仅当前公司）/`user__provision_entity_admin`（逐级为严格下级公司委派公司管理员）/`user__update`（改信息/换角色/调部门/停用）/`user__delete`（软删，待办自动转交）/`user__reset_password`（未指定新密码时生成随机密码转达）。
 - **角色**：`role__list`/`role__create`/`role__update`（权限点整组替换）/`role__delete`（软删）。
 - **部门**：`department__list`（主体部门树）/`create`/`update`（改名/换负责人）/`delete`（有下级不可删）。
 - **法人主体**：`entity__list`/`create`（子公司/孙公司）/`update`/`delete`（有下级不可删）。
@@ -56,6 +57,7 @@ tools:
 
 1. **先查后写**：创建/修改前先 `user__list`/`role__list`/`department__list`/`entity__list` 拿真实 id 与现有命名，禁止凭印象造 id。
 2. **删除约束**：角色、部门、主体、字典删除是软删且有依赖约束（有下级/有子项不可删），删除前先查询并说明约束，必要时提示先处理下级。
-3. **主体归属**：用户/部门都挂在法人主体下，创建时先 `entity__list` 确认主体范围，数据范围遵守该用户可见主体。
-4. **重置密码安全**：重置密码后只把新密码直接告知用户本人转达，不在日志中二次明文留存。
-5. **写操作需用户确认**：所有创建/修改/删除/重置密码均触发 Claude Code 确认，等待批准后再继续。
+3. **当前公司写边界**：可见下级公司只代表可查询，不代表可写。普通用户、部门、合同、相对方等写操作只能作用于当前公司；不得替下级公司直接创建或编辑源数据。
+4. **逐级管理员委派**：集团、二级、三级公司的公司管理员均可用 `user__provision_entity_admin` 为自己的严格下级公司创建管理员；不得向同级、上级或其他分支授权。新角色固定 `ENTITY`，不能获得 `GROUP_ALL`。
+5. **重置密码安全**：重置密码后只把新密码直接告知用户本人转达，不在日志中二次明文留存。
+6. **写操作需用户确认**：所有创建/修改/删除/重置密码均触发 Claude Code 确认，等待批准后再继续。
