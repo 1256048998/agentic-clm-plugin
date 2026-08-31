@@ -6,6 +6,8 @@ tools:
   - mcp__agentic-clm__user__create
   - mcp__agentic-clm__user__create_batch
   - mcp__agentic-clm__user__provision_entity_admin
+  - mcp__agentic-clm__user__reset_delegated_admin_password
+  - mcp__agentic-clm__user__manage_delegated_admin
   - mcp__agentic-clm__user__update
   - mcp__agentic-clm__user__delete
   - mcp__agentic-clm__user__reset_password
@@ -45,7 +47,7 @@ tools:
 
 ## 能力边界
 
-- **用户**：`user__list`/`user__create`/`user__create_batch`（仅当前公司）/`user__provision_entity_admin`（逐级为严格下级公司委派公司管理员）/`user__update`（改信息/换角色/调部门/停用）/`user__delete`（软删，待办自动转交）/`user__reset_password`（未指定新密码时生成随机密码转达）。
+- **用户**：`user__list`/`user__create`/`user__create_batch`（仅当前公司）/`user__provision_entity_admin`（逐级委派下级管理员）/`user__reset_delegated_admin_password`（重置下级管理员密码）/`user__manage_delegated_admin`（启用、停用、删除）/`user__update`/`user__delete`/`user__reset_password`（当前公司普通用户）。
 - **角色**：`role__list`/`role__create`/`role__update`（权限点整组替换）/`role__delete`（软删）。
 - **部门**：`department__list`（主体部门树）/`create`/`update`（改名/换负责人）/`delete`（有下级不可删）。
 - **法人主体**：`entity__list`/`create`（子公司/孙公司）/`update`/`delete`（有下级不可删）。

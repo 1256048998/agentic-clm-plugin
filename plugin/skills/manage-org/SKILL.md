@@ -7,6 +7,8 @@ allowed-tools:
   - mcp__agentic-clm__user__create
   - mcp__agentic-clm__user__create_batch
   - mcp__agentic-clm__user__provision_entity_admin
+  - mcp__agentic-clm__user__reset_delegated_admin_password
+  - mcp__agentic-clm__user__manage_delegated_admin
   - mcp__agentic-clm__user__update
   - mcp__agentic-clm__user__delete
   - mcp__agentic-clm__user__reset_password
@@ -28,6 +30,7 @@ allowed-tools:
 - `user__list` 查用户（账号/姓名/电话/邮箱/角色/部门/主体）。
 - `user__create` 建账号（账号/姓名/密码/角色/部门/主体）；Excel 名单批量导入 → `user__create_batch`。
 - 普通建账号仅限当前公司。为下级公司创建公司管理员必须用 `user__provision_entity_admin`：公司管理员可逐级向自己的严格下级委派，目标管理员固定为该主体 `ENTITY` 数据范围。
+- 下级管理员忘记密码用 `user__reset_delegated_admin_password`；启用、停用或软删除用 `user__manage_delegated_admin`。停用/删除会使旧会话失效并转交未完成审批待办。
 - `user__update` 改信息/换角色/调部门/停用（离职）；`user__delete` 软删，**待办自动转交部门负责人或管理员**。
 - `user__reset_password` 重置登录密码；**未指定新密码时生成随机密码，只直接告知用户转达**。
 
