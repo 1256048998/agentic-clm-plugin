@@ -36,7 +36,9 @@ allowed-tools:
 
 ## 2. 角色
 
-- `role__list` 查角色；`role__create` 建角色（编码/名称/数据范围/权限点）；`role__update` **权限点整组替换**（改权限前先 list 当前权限点）；`role__delete` 软删。
+- `role__list` 查角色；`role__create` 建角色（自动归属当前公司，默认 `LOCAL` 本公司级）；只有下级上报场景才显式使用 `CROSS_ENTITY` 跨公司级。
+- `CUSTOM` 数据范围用 `customEntityNames` 选择公司；只能选操作者已有范围内的公司。`role__update` 的权限点为**整组替换**，改权限前先 list 当前值；`role__delete` 软删。
+- 持有 `system:role` 的用户可管理本公司角色，但新角色的权限点与数据范围必须是自身授权的子集。
 - 改角色权限会立即影响该角色所有成员，先向用户说明影响面。
 
 ## 3. 部门

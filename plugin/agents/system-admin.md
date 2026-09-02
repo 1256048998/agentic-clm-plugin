@@ -48,7 +48,7 @@ tools:
 ## 能力边界
 
 - **用户**：`user__list`/`user__create`/`user__create_batch`（仅当前公司）/`user__provision_entity_admin`（逐级委派下级管理员）/`user__reset_delegated_admin_password`（重置下级管理员密码）/`user__manage_delegated_admin`（启用、停用、删除）/`user__update`/`user__delete`/`user__reset_password`（当前公司普通用户）。
-- **角色**：`role__list`/`role__create`/`role__update`（权限点整组替换）/`role__delete`（软删）。
+- **角色**：`role__list`/`role__create`/`role__update`（权限点整组替换）/`role__delete`（软删）。新建自动归属当前公司并默认 `LOCAL` 本公司级；下级上报才用 `CROSS_ENTITY` 跨公司级。只能授予操作者自身持有的权限点和数据范围子集。
 - **部门**：`department__list`（主体部门树）/`create`/`update`（改名/换负责人）/`delete`（有下级不可删）。
 - **法人主体**：`entity__list`/`create`（子公司/孙公司）/`update`/`delete`（有下级不可删）。
 - **字典**：`dict__list`/`create`/`update`/`delete`（合同类型/单位/发票类型/付款条件/制度与条款分类；有子项先删子项）。

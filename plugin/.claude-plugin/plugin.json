@@ -1,7 +1,7 @@
 {
   "name": "agentic-clm",
   "displayName": "AgenticCLM",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "AgenticCLM 合同全生命周期管理：创建/起草合同、审批流、制度发布、履约预警、台账检索、主数据与组织管理。通过 MCP 暴露全部业务能力，并附领域 agent 与工作流 skill。",
   "author": { "name": "AgenticCLM", "url": "https://github.com/1256048998" },
   "homepage": "https://github.com/1256048998/agentic-clm-plugin#readme",
